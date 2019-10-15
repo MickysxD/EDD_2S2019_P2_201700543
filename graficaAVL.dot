@@ -1,0 +1,16 @@
+digraph grafico{
+node [shape = record];
+graph [nodesep = 1];
+rankdir=TB;
+"2019"[label= "<C0>| Carne: 2019\nNombre: Micky\nAltura: 0\nFactor: 0|<C1>"];
+"2017"[label= "<C0>| Carne: 2017\nNombre: Ju\nAltura: 0\nFactor: 0|<C1>"];
+"2015"[label= "Carne: 2015\nNombre: Ji\nAltura: 0\nFactor: 0"];
+"2017":C0->"2015";
+"2018"[label= "Carne: 2018\nNombre: E\nAltura: 0\nFactor: 0"];
+"2017":C1->"2018";
+{rank=same; "2015" "2018" }
+"2019":C0->"2017";
+"2020"[label= "Carne: 2020\nNombre: Miguel\nAltura: 0\nFactor: 0"];
+"2019":C1->"2020";
+{rank=same; "2017" "2020" }
+}
