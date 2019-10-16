@@ -5,7 +5,7 @@ class NodoAVL():
         self.der = None
         self.nombre = ""
         self.carnet = 0
-        self.altura = 0 
+        self.altura = 1 
         self.factor = 0
 
 class AVL():
@@ -15,9 +15,10 @@ class AVL():
 
     def agregar(self, nuevo):
         if(self.root == None):
+            nuevo.altura = 1
             self.root = nuevo
         else:
-            self.agregarRecursivo(self.root, nuevo)
+            self.agregarAVL(self.root, nuevo)
 
     def agregarRecursivo(self, root, nuevo):
         if(root.carnet > nuevo.carnet):
@@ -69,30 +70,40 @@ class AVL():
         else:
             return root.factor
 
-    def rotacionDD(self, root):
+    def altura(self, root):
+        if(root == None):
+            return 0
+        else:
+            return root.altura
+
+    def rotacionI(self, root):
         aux = root.izq
         root.izq = aux.der
         aux.der = root
-        root.factor = max([root.izq.factor, root.der.factor]) + 1
-        aux.factor = max([aux.izq.factor, aux.der.factor]) + 1
+        root.factor = max([self.factor(root.izq), self.factor(root.der)]) + 1
+        root.altura = max([self.altura(root.izq), self.altura(root.der)]) + 1
+        aux.factor = max([self.factor(aux.izq), self.factor(aux.der)]) + 1
+        aux.altura = max([self.altura(aux.izq), self.altura(aux.der)]) + 1
         return aux
 
-    def rotacionII(self, root):
+    def rotacionD(self, root):
         aux = root.der
         root.der = aux.izq
         aux.izq = root
-        root.factor = max([root.izq.factor, root.der.factor]) + 1
-        aux.factor = max([aux.izq.factor, aux.der.factor]) + 1
+        root.factor = max([self.factor(root.izq), self.factor(root.der)]) + 1
+        root.altura = max([self.altura(root.izq), self.altura(root.der)]) + 1
+        aux.factor = max([self.factor(aux.izq), self.factor(aux.der)]) + 1
+        aux.altura = max([self.altura(aux.izq), self.altura(aux.der)]) + 1
         return aux
     
     def rotacionDI(self, root):
-        root.izq = self.rotacionII(root.izq)
-        temp = self.rotacionDD(root)
+        root.izq = self.rotacionD(root.izq)
+        temp = self.rotacionI(root)
         return temp
 
-    def rotacionID(self, root):
-        root.der = self.rotacionDD(root.der)
-        temp = self.rotacionII(root)
+    def rotacionDD(self, root):
+        root.der = self.rotacionI(root.der)
+        temp = self.rotacionD(root)
         return temp
 
     def agregarAVL(self, root, nuevo):
@@ -102,31 +113,34 @@ class AVL():
                 root.izq = nuevo
             else:
                 root.izq = self.agregarAVL(root.izq, nuevo)
-                if(root.izq.factor - root.der.factor == 2):
+                if(self.factor(root.izq) - self.factor(root.der) == 2):
                     if(nuevo.carnet < root.izq.carnet):
-                       padre = self.rotacionDI(root)
+                       padre = self.rotacionI(root)
                     else:
-                        padre =  self.rotacionDD(root)
+                        padre =  self.rotacionDI(root)
         
         elif(nuevo.carnet > root.carnet):
             if(root.der == None):
                 root.der = nuevo
             else:
                 root.der = self.agregarAVL(root.der, nuevo)
-                if(root.der.factor - root.izq.factor == 2):
+                if(self.factor(root.der) - self.factor(root.izq) == 2):
                     if(nuevo.carnet > root.der.carnet):
-                       padre = self.rotacionID(root)
+                       padre = self.rotacionD(root)
                     else:
-                        padre =  self.rotacionII(root)
+                        padre =  self.rotacionDD(root)
         else:
             print("Nodo duplicado")
 
         if(root.izq == None and root.der != None):
-            root.factor = root.der.factor + 1
+            root.factor = self.factor(root.der) + 1
+            root.altura = self.altura(root.der) + 1
         elif(root.izq != None and root.der == None):
-            root.factor = root.izq.factor + 1
+            root.factor = self.factor(root.izq) + 1
+            root.altura = self.altura(root.izq) + 1
         else:
-            root.factor = max([root.izq.factor, root.der.factor]) + 1
+            root.factor = max([self.factor(root.izq), self.factor(root.der)]) + 1
+            root.altura = max([self.altura(root.izq), self.altura(root.der)]) + 1
 
         return padre
 
