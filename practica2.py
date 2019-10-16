@@ -25,12 +25,12 @@ av.agregar(nodo)
 
 nodo = NodoAVL()
 nodo.nombre = "Ju"
-nodo.carnet = 2017
+nodo.carnet = 2018
 av.agregar(nodo)
 
 nodo = NodoAVL()
 nodo.nombre = "E"
-nodo.carnet = 2018
+nodo.carnet = 2017
 av.agregar(nodo)
 
 nodo = NodoAVL()
@@ -40,7 +40,7 @@ av.agregar(nodo)
 
 nodo = NodoAVL()
 nodo.nombre = "Miguel"
-nodo.carnet = 2020
+nodo.carnet = 2016
 av.agregar(nodo)
 
 graf(av)

@@ -62,3 +62,71 @@ class AVL():
 
         retorno = retorno + rank
         return retorno
+
+    def factor(self, root):
+        if(root == None):
+            return -1
+        else:
+            return root.factor
+
+    def rotacionDD(self, root):
+        aux = root.izq
+        root.izq = aux.der
+        aux.der = root
+        root.factor = max([root.izq.factor, root.der.factor]) + 1
+        aux.factor = max([aux.izq.factor, aux.der.factor]) + 1
+        return aux
+
+    def rotacionII(self, root):
+        aux = root.der
+        root.der = aux.izq
+        aux.izq = root
+        root.factor = max([root.izq.factor, root.der.factor]) + 1
+        aux.factor = max([aux.izq.factor, aux.der.factor]) + 1
+        return aux
+    
+    def rotacionDI(self, root):
+        root.izq = self.rotacionII(root.izq)
+        temp = self.rotacionDD(root)
+        return temp
+
+    def rotacionID(self, root):
+        root.der = self.rotacionDD(root.der)
+        temp = self.rotacionII(root)
+        return temp
+
+    def agregarAVL(self, root, nuevo):
+        padre = root
+        if(nuevo.carnet < root.carnet):
+            if(root.izq == None):
+                root.izq = nuevo
+            else:
+                root.izq = self.agregarAVL(root.izq, nuevo)
+                if(root.izq.factor - root.der.factor == 2):
+                    if(nuevo.carnet < root.izq.carnet):
+                       padre = self.rotacionDI(root)
+                    else:
+                        padre =  self.rotacionDD(root)
+        
+        elif(nuevo.carnet > root.carnet):
+            if(root.der == None):
+                root.der = nuevo
+            else:
+                root.der = self.agregarAVL(root.der, nuevo)
+                if(root.der.factor - root.izq.factor == 2):
+                    if(nuevo.carnet > root.der.carnet):
+                       padre = self.rotacionID(root)
+                    else:
+                        padre =  self.rotacionII(root)
+        else:
+            print("Nodo duplicado")
+
+        if(root.izq == None and root.der != None):
+            root.factor = root.der.factor + 1
+        elif(root.izq != None and root.der == None):
+            root.factor = root.izq.factor + 1
+        else:
+            root.factor = max([root.izq.factor, root.der.factor]) + 1
+
+        return padre
+
