@@ -2,6 +2,8 @@ from AVL.AVL import AVL
 from AVL.AVL import NodoAVL
 import csv
 import os
+import json
+import hashlib
 
 def graf(avl):
     nombre = "graficaAVL"
@@ -15,43 +17,22 @@ def graf(avl):
     os.system("dot -Tjpg " + nombre + ".dot" + " -o " + nombre + ".jpg")
     os.system(nombre + ".jpg")
 
+def carga(cadena):
+    try:
+        with open(cadena) as csvfile:  
+            reader = csv.reader(csvfile, delimiter=',')
+            i = 1
+            for line in reader:
+                if(i < 3):
+                    print(line[0])
+                    print(line[1])
+                    i = i+1
+                else:
+                    i = i+1
+                print("\n")
+    except FileNotFoundError:
+        print("")
+
+carga("Estructuras de datos.csv")
 
 av = AVL()
-
-nodo = NodoAVL()
-nodo.nombre = "Micky"
-nodo.carnet = 10
-av.agregar(nodo)
-
-nodo = NodoAVL()
-nodo.nombre = "Ju"
-nodo.carnet = 5
-av.agregar(nodo)
-
-nodo = NodoAVL()
-nodo.nombre = "E"
-nodo.carnet = 13
-av.agregar(nodo)
-
-nodo = NodoAVL()
-nodo.nombre = "Ji"
-nodo.carnet = 1
-av.agregar(nodo)
-
-nodo = NodoAVL()
-nodo.nombre = "Miguel"
-nodo.carnet = 6
-av.agregar(nodo)
-
-nodo = NodoAVL()
-nodo.nombre = "xd"
-nodo.carnet = 17
-av.agregar(nodo)
-
-nodo = NodoAVL()
-nodo.nombre = "pex"
-nodo.carnet = 16
-av.agregar(nodo)
-
-
-graf(av)

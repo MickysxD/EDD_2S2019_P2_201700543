@@ -118,7 +118,6 @@ class AVL():
                        padre = self.rotacionI(root)
                     else:
                         padre =  self.rotacionDI(root)
-        
         elif(nuevo.carnet > root.carnet):
             if(root.der == None):
                 root.der = nuevo
@@ -133,14 +132,23 @@ class AVL():
             print("Nodo duplicado")
 
         if(root.izq == None and root.der != None):
-            root.factor = self.factor(root.der) + 1
+            root.factor = root.der.factor + 1
             root.altura = self.altura(root.der) + 1
         elif(root.izq != None and root.der == None):
-            root.factor = self.factor(root.izq) + 1
+            root.factor = root.izq.factor + 1
             root.altura = self.altura(root.izq) + 1
         else:
             root.factor = max([self.factor(root.izq), self.factor(root.der)]) + 1
             root.altura = max([self.altura(root.izq), self.altura(root.der)]) + 1
 
+        self.root = padre
         return padre
 
+    def inorder(self, root):
+        if(root.izq != None):
+            self.inorder(root.izq)
+
+        print("Carne: " + str(root.carnet) + " Nombre: " + root.nombre + " Altura: " + str(root.altura) + " Factor: " + str(root.factor))
+
+        if(root.der != None):
+            self.inorder(root.der)
