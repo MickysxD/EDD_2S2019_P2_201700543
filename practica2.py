@@ -5,6 +5,9 @@ import os
 import json
 import hashlib
 
+av = AVL()
+jactual = json()
+
 def graf(avl):
     nombre = "graficaAVL"
     doc = open(nombre + ".dot", "w")
@@ -23,6 +26,10 @@ def carga(cadena):
             reader = csv.reader(csvfile, delimiter=',')
             i = 1
             for line in reader:
+                if(i == 2):
+                    jactual = json.load(line[1])
+                    print(jactual)
+                    i = i+1
                 if(i < 3):
                     print(line[0])
                     print(line[1])
@@ -31,8 +38,35 @@ def carga(cadena):
                     i = i+1
                 print("\n")
     except FileNotFoundError:
-        print("")
+        print("Error con el archivo")
 
-carga("Estructuras de datos.csv")
+def insertarB():
+    print("     Insertar Bloque\n")
+    print(" Ingrese la direccion del archivo .csv")
+    seleccion = input()
+    carga(seleccion)
 
-av = AVL()
+def seleccionarB():
+    print("seleccionar")
+
+def reportes():
+    print("reportes")
+
+def menu():
+    print("     Menu\n")
+    print(" 1. Insertar Bloque")
+    print(" 2. Seleccionar Bloque")
+    print(" 3. Reportes\n")
+    seleccion = input()
+    if(seleccion == "1"):
+        insertarB()
+    elif(seleccion == "2"):
+        seleccionarB()
+    elif(seleccion == "3"):
+        reportes()
+    else:
+        print("Seleccion no valida")
+    print("\n\n")
+
+while(True):
+    menu()
