@@ -45,23 +45,25 @@ def carga(cadena):
                     hora = datetime.datetime.now()
                     actual = str(hora.strftime("%d-%m-%y-::%H:%M:%S"))
                     prev = ""
-                    hac = hashlib.sha256(jactual.encode()).hexdigest()
                     if(lista.contador == 0):
                         prev = "0000"
                     else:
                         prev = lista.ultimo.hash
+                    para = str(lista.contador)+actual+nclase+jactual+prev
+                    hac = hashlib.sha256(para.encode()).hexdigest()
                     bloque = {"INDEX":lista.contador,"TIMESTAMP":actual,"CLASS":nclase,"DATA":jactual,"PREVIOUSHASH":prev,"HASH":hac}
                     jfinal = json.dumps(bloque, separators=(',', ':'))
                     jbloque = json.dumps(jfinal)
-                    server.sendall(jbloque.encode('utf-8'))
+                    print(jbloque.replace("\\\\","").replace("\\\"",""))
+                    server.sendall(jbloque.replace("\\\\","").replace("\\\"","").encode('utf-8'))
                     ciclo = True
+                    global respuesta
+                    global agregar
                     while ciclo:
                         if(respuesta):
                             if(agregar):
-                                index = 0
-                                if(lista.contador != 0):
-                                    nodo = Bloque(lista.contador, actual, nclase, jactual, prev, hac)
-                                    lista.insertar_f(nodo)
+                                nodo = Bloque(lista.contador, actual, nclase, jactual, prev, hac)
+                                lista.insertar_f(nodo)
                             respuesta = False
                             agregar = False
                             ciclo = False
@@ -70,19 +72,23 @@ def carga(cadena):
         print("Error con el archivo")
 
 def jleer(cadena):
-    with open(cadena) as contenido:
-        j = json.load(contenido)
-        jactual = json.dumps(j)
-        #jactual = jactual.replace(" ","")
-        dir = json.dumps(j.get("INDEX")) + json.dumps(j.get("TIMESTAMP")).replace("\"","") + json.dumps(j.get("CLASS")).replace("\"","") + json.dumps(j.get("DATA")).replace(" ","") + json.dumps(j.get("PREVIOUSHASH")).replace("\"","")
+    try:
+        j = json.dumps(cadena)
+        jactual = json.dumps(j)    
+        para = json.dumps(j.get("INDEX")) + json.dumps(j.get("TIMESTAMP")).replace("\"","") + json.dumps(j.get("CLASS")).replace("\"","") + json.dumps(j.get("DATA")).replace(" ","") + json.dumps(j.get("PREVIOUSHASH")).replace("\"","")
+        actual = hashlib.sha256(para.encode()).hexdigest()
+        if(actual == json.dumps(j.get("HASH"))):
+            server.sendall("true".encode('utf-8'))
+    except ValueError:
+        print("Cadena no valida")
 
 def insertarB():
     print("     Insertar Bloque\n")
     print(" Ingrese la direccion del archivo .csv")
     seleccion = input()
     print("\n")
-    carga("e.csv")
-    jleer("ENVIO_BLOQUE.json")
+    carga(seleccion)
+    
 
 def seleccionarB():
     print("seleccionar")
@@ -121,17 +127,19 @@ def coneccion():
             if socks == server:
                 message = socks.recv(2048)
                 print (message.decode('utf-8'))
-                if(message == "true"):
+                global respuesta
+                global agregar
+                if(message.decode('utf-8') == "true"):
                     respuesta = True
                     agregar = True
-                elif(message == "false"):
+                elif(message.decode('utf-8') == "false"):
                     respuesta = True
                     agregar = False
+                else:
+                    print("")
+                    jleer(message.decode('utf-8'))
             else:
-                message = sys.stdin.readline()
-                server.sendall(message.encode('utf-8'))
                 sys.stdout.write("<You>")
-                sys.stdout.write(message)
                 sys.stdout.flush()
 
 
