@@ -1,16 +1,21 @@
 from AVL.AVL import AVL
 from AVL.AVL import NodoAVL
 from ListaDoble.ListaDoble import ListaDoble
-from ListaDoble.ListaDoble import Cuerpo
+from ListaDoble.ListaDoble import Bloque
 import csv
 import os
 import json
 import hashlib
 import datetime
+import socket
+import select
+import sys
+from _thread import *
 
-av = AVL()
 lista = ListaDoble()
-json_data = json.dumps({})
+jbloque = ""
+respuesta = False
+agregar = False
 
 def graf(avl):
     nombre = "graficaAVL"
@@ -46,8 +51,20 @@ def carga(cadena):
                     else:
                         prev = lista.ultimo.hash
                     bloque = {"INDEX":lista.contador,"TIMESTAMP":actual,"CLASS":nclase,"DATA":jactual,"PREVIOUSHASH":prev,"HASH":hac}
-
-                    jfinal = json.loads(bloque)
+                    jfinal = json.dumps(bloque, separators=(',', ':'))
+                    jbloque = json.dumps(jfinal)
+                    server.sendall(jbloque.encode('utf-8'))
+                    ciclo = True
+                    while ciclo:
+                        if(respuesta):
+                            if(agregar):
+                                index = 0
+                                if(lista.contador != 0):
+                                    nodo = Bloque(lista.contador, actual, nclase, jactual, prev, hac)
+                                    lista.insertar_f(nodo)
+                            respuesta = False
+                            agregar = False
+                            ciclo = False
                 i = i+1
     except FileNotFoundError:
         print("Error con el archivo")
@@ -57,10 +74,7 @@ def jleer(cadena):
         j = json.load(contenido)
         jactual = json.dumps(j)
         #jactual = jactual.replace(" ","")
-        print(jactual)
         dir = json.dumps(j.get("INDEX")) + json.dumps(j.get("TIMESTAMP")).replace("\"","") + json.dumps(j.get("CLASS")).replace("\"","") + json.dumps(j.get("DATA")).replace(" ","") + json.dumps(j.get("PREVIOUSHASH")).replace("\"","")
-        print(dir)
-        print(hashlib.sha256(dir.encode()).hexdigest()+"\n")
 
 def insertarB():
     print("     Insertar Bloque\n")
@@ -80,7 +94,8 @@ def menu():
     print("     Menu\n")
     print(" 1. Insertar Bloque")
     print(" 2. Seleccionar Bloque")
-    print(" 3. Reportes\n")
+    print(" 3. Reportes")
+    print(" 4. Salir\n")
     seleccion = input()
     if(seleccion == "1"):
         insertarB()
@@ -88,11 +103,48 @@ def menu():
         seleccionarB()
     elif(seleccion == "3"):
         reportes()
+    elif(seleccion == "4"):
+        exit()
     else:
         print("Seleccion no valida")
     print("\n\n")
 
+def coneccion():
+    while True:
+
+        # maintains a list of possible input streams
+        read_sockets = select.select([server], [], [], 1)[0]
+        import msvcrt
+        if msvcrt.kbhit(): read_sockets.append(sys.stdin)
+
+        for socks in read_sockets:
+            if socks == server:
+                message = socks.recv(2048)
+                print (message.decode('utf-8'))
+                if(message == "true"):
+                    respuesta = True
+                    agregar = True
+                elif(message == "false"):
+                    respuesta = True
+                    agregar = False
+            else:
+                message = sys.stdin.readline()
+                server.sendall(message.encode('utf-8'))
+                sys.stdout.write("<You>")
+                sys.stdout.write(message)
+                sys.stdout.flush()
+
+
+server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+if len(sys.argv) != 3:
+    print ("Correct usage: script, IP address, port number")
+    exit()
+IP_address = str(sys.argv[1])
+Port = int(sys.argv[2])
+server.connect((IP_address, Port))
+
 while(True):
-    t = datetime.datetime.now()
-    print(str(t.strftime("%d-%m-%y-::%H:%M:%S")))
+    start_new_thread(coneccion,())
     menu()
+
+server.close()
