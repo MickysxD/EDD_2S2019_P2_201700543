@@ -152,3 +152,21 @@ class AVL():
 
         if(root.der != None):
             self.inorder(root.der)
+
+    def preorder(self, root):
+        print("Carne: " + str(root.carnet) + " Nombre: " + root.nombre + " Altura: " + str(root.altura) + " Factor: " + str(root.factor))
+
+        if(root.izq != None):
+            self.inorder(root.izq)
+
+        if(root.der != None):
+            self.inorder(root.der)
+
+    def posorder(self, root):
+        if(root.izq != None):
+            self.inorder(root.izq)
+
+        if(root.der != None):
+            self.inorder(root.der)
+
+        print("Carne: " + str(root.carnet) + " Nombre: " + root.nombre + " Altura: " + str(root.altura) + " Factor: " + str(root.factor))

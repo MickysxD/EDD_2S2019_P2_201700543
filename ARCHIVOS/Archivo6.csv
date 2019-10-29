@@ -1,0 +1,22 @@
+class,Matematica 2
+data,"{
+  ""value"":""201400123-Kevin"",
+  ""right"":{
+    ""value"":""201500123-Juan"",
+    ""right"":{
+      ""value"":""201600123-Julio"",
+      ""right"":{
+        ""value"":""201700123-Sofia"",
+        ""right"":{
+          ""value"":""201800123-Andres"",
+          ""right"":null,
+          ""left"":null
+        },
+        ""left"":null
+      },
+      ""left"":null
+    },
+    ""left"":null
+  },
+  ""left"":null
+}"

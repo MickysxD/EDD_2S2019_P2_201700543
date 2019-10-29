@@ -1,0 +1,26 @@
+class,Arquitectura de Computadoras 1
+data,"{
+  ""value"":""201503476-Ricardo"",
+  ""left"":{
+    ""value"":""201600123-Ernesto"",
+    ""left"": null,
+    ""right"": {
+      ""value"":""201700523-Pedro"",
+      ""left"": null,
+      ""right"": {
+        ""value"":""201800451-Joseph"",
+        ""left"": null,
+        ""right"":{
+          ""value"":""201800452-Chris"",
+          ""left"": null,
+          ""right"": null
+        }
+      }
+    }
+  },
+  ""right"":{
+    ""value"":""201400523-Juan"",
+    ""left"": null,
+    ""right"": null
+  }
+}"

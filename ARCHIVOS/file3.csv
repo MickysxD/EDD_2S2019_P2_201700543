@@ -1,0 +1,35 @@
+class,Sistemas Operativos
+data,"{
+    ""value"":""201700250-Hazard"",
+    ""left"":{
+        ""value"":""201700120-Isco"",
+        ""left"":{
+            ""value"":""201700100-Arnold"",
+            ""left"":null,
+            ""right"":null
+        },
+        ""right"":{
+            ""value"":""201700090-Franco"",
+            ""left"":null,
+            ""right"":null
+        }
+    },
+    ""right"":{
+        ""value"":""201700310-Ronnie"",
+        ""left"":{
+            ""value"":""201700315-Jay"",
+            ""left"":null,
+            ""right"":null
+        },
+        ""right"":{
+            ""value"":""201700320-Jeremy"",
+            ""left"":null,
+            ""right"":{
+                ""value"":""201700318-Calum"",
+                ""left"":null,
+                ""right"":null
+            }
+        }
+    }
+}"
+

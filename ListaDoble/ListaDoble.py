@@ -1,4 +1,5 @@
 class Bloque():
+    
     def __init__ (self, index, time, clas, data, prev, hash):
         self.siguiente = None
         self.anterior = None

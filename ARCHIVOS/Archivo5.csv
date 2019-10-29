@@ -1,0 +1,22 @@
+class,Matematica 1
+data,"{
+  ""value"":""201400123-Beto"",
+  ""right"":null,
+  ""left"":{
+    ""value"":""201300123-Chepe"",
+    ""right"":null,
+    ""left"":{
+      ""value"":""201200123-Kristel"",
+      ""right"":null,
+      ""left"":{
+        ""value"":""201100123-Uziel"",
+        ""right"":null,
+        ""left"":{
+          ""value"":""201000123-Jorge"",
+          ""right"":null,
+          ""left"":null
+        }
+      }
+    }
+  }
+}"

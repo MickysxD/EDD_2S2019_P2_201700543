@@ -1,0 +1,31 @@
+class,Compiladores 2
+data,"{
+    ""value"":""201700312-Adrian"",
+    ""left"":{
+        ""value"":""201700350-Pedro"",
+        ""left"":{
+            ""value"":""201700330-Juan"",
+            ""left"":null,
+            ""right"":null
+        },
+        ""right"":{
+            ""value"":""201700300-Esteban"",
+            ""left"":null,
+            ""right"":null
+        }
+    },
+    ""right"":{
+        ""value"":""201700310-Domingo"",
+        ""left"":{
+            ""value"":""201700315-Ruth"",
+            ""left"":null,
+            ""right"":null
+        },
+        ""right"":{
+            ""value"":""201700320-Majo"",
+            ""left"":null,
+            ""right"":null
+        }
+    }
+}"
+

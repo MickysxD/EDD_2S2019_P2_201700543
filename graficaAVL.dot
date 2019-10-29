@@ -2,65 +2,23 @@ digraph grafico{
 node [shape = record];
 graph [nodesep = 1];
 rankdir=TB;
-"16"[label= "<C0>| Carne: 16\nNombre: \nAltura: 5\nFactor: 4|<C1>"];
-"8"[label= "<C0>| Carne: 8\nNombre: \nAltura: 4\nFactor: 3|<C1>"];
-"4"[label= "<C0>| Carne: 4\nNombre: \nAltura: 3\nFactor: 2|<C1>"];
-"2"[label= "<C0>| Carne: 2\nNombre: \nAltura: 2\nFactor: 1|<C1>"];
-"1"[label= "Carne: 1\nNombre: \nAltura: 1\nFactor: 0"];
-"2":C0->"1";
-"3"[label= "Carne: 3\nNombre: \nAltura: 1\nFactor: 0"];
-"2":C1->"3";
-{rank=same; "1" "3" }
-"4":C0->"2";
-"6"[label= "<C0>| Carne: 6\nNombre: \nAltura: 2\nFactor: 1|<C1>"];
-"5"[label= "Carne: 5\nNombre: \nAltura: 1\nFactor: 0"];
-"6":C0->"5";
-"7"[label= "Carne: 7\nNombre: \nAltura: 1\nFactor: 0"];
-"6":C1->"7";
-{rank=same; "5" "7" }
-"4":C1->"6";
-{rank=same; "2" "6" }
-"8":C0->"4";
-"12"[label= "<C0>| Carne: 12\nNombre: \nAltura: 3\nFactor: 2|<C1>"];
-"10"[label= "<C0>| Carne: 10\nNombre: \nAltura: 2\nFactor: 1|<C1>"];
-"9"[label= "Carne: 9\nNombre: \nAltura: 1\nFactor: 0"];
-"10":C0->"9";
-"11"[label= "Carne: 11\nNombre: \nAltura: 1\nFactor: 0"];
-"10":C1->"11";
-{rank=same; "9" "11" }
-"12":C0->"10";
-"14"[label= "<C0>| Carne: 14\nNombre: \nAltura: 2\nFactor: 1|<C1>"];
-"13"[label= "Carne: 13\nNombre: \nAltura: 1\nFactor: 0"];
-"14":C0->"13";
-"15"[label= "Carne: 15\nNombre: \nAltura: 1\nFactor: 0"];
-"14":C1->"15";
-{rank=same; "13" "15" }
-"12":C1->"14";
-{rank=same; "10" "14" }
-"8":C1->"12";
-{rank=same; "4" "12" }
-"16":C0->"8";
-"20"[label= "<C0>| Carne: 20\nNombre: \nAltura: 4\nFactor: 3|<C1>"];
-"18"[label= "<C0>| Carne: 18\nNombre: \nAltura: 2\nFactor: 1|<C1>"];
-"17"[label= "Carne: 17\nNombre: \nAltura: 1\nFactor: 0"];
-"18":C0->"17";
-"19"[label= "Carne: 19\nNombre: \nAltura: 1\nFactor: 0"];
-"18":C1->"19";
-{rank=same; "17" "19" }
-"20":C0->"18";
-"22"[label= "<C0>| Carne: 22\nNombre: \nAltura: 3\nFactor: 2|<C1>"];
-"21"[label= "Carne: 21\nNombre: \nAltura: 1\nFactor: 0"];
-"22":C0->"21";
-"24"[label= "<C0>| Carne: 24\nNombre: \nAltura: 2\nFactor: 1|<C1>"];
-"23"[label= "Carne: 23\nNombre: \nAltura: 1\nFactor: 0"];
-"24":C0->"23";
-"25"[label= "Carne: 25\nNombre: \nAltura: 1\nFactor: 0"];
-"24":C1->"25";
-{rank=same; "23" "25" }
-"22":C1->"24";
-{rank=same; "21" "24" }
-"20":C1->"22";
-{rank=same; "18" "22" }
-"16":C1->"20";
-{rank=same; "8" "20" }
+"201700120"[label= "<C0>| Carne: 201700120\nNombre: Isco\nAltura: 4\nFactor: 3|<C1>"];
+"201700100"[label= "<C0>| Carne: 201700100\nNombre: Arnold\nAltura: 2\nFactor: 1|<C1>"];
+"201700090"[label= "Carne: 201700090\nNombre: Franco\nAltura: 1\nFactor: 0"];
+"201700100":C0->"201700090";
+{rank=same; "201700090" }
+"201700120":C0->"201700100";
+"201700310"[label= "<C0>| Carne: 201700310\nNombre: Ronnie\nAltura: 3\nFactor: 2|<C1>"];
+"201700250"[label= "Carne: 201700250\nNombre: Hazard\nAltura: 1\nFactor: 0"];
+"201700310":C0->"201700250";
+"201700318"[label= "<C0>| Carne: 201700318\nNombre: Calum\nAltura: 2\nFactor: 1|<C1>"];
+"201700315"[label= "Carne: 201700315\nNombre: Jay\nAltura: 1\nFactor: 0"];
+"201700318":C0->"201700315";
+"201700320"[label= "Carne: 201700320\nNombre: Jeremy\nAltura: 1\nFactor: 0"];
+"201700318":C1->"201700320";
+{rank=same; "201700315" "201700320" }
+"201700310":C1->"201700318";
+{rank=same; "201700250" "201700318" }
+"201700120":C1->"201700310";
+{rank=same; "201700100" "201700310" }
 }
